@@ -43,7 +43,7 @@
     left: 50%;
     top: 50%;
     transform-origin: 0 0;
-    font-size: clamp(18px, 3vmin, 48px); /* scalable font */
+    font-size: clamp(18px, 3vmin, 56px); /* scalable font */
     font-weight: bold;
     color: #fff;
   }
@@ -76,6 +76,20 @@
     color: white;
     font-size: 14px;
   }
+
+  .readme-link {
+    position: absolute;
+    bottom: 0px;
+    right: 10px;
+    color: gray;
+    text-decoration: none;
+    font-size: 0.8rem;
+    z-index: 10;
+  }
+
+  .readme-link:hover {
+    text-decoration: underline;
+  }
 </style>
 </head>
 <body>
@@ -86,9 +100,16 @@
   <div id="controls">
     <button onclick="toggleRotation()">Start/Stop</button>
     <button onclick="toggleDirection()">Change Direction</button>
-    <button onclick="resetCircle()">Reset</button>
-    <button onclick="toggleFullscreen()">Fullscreen</button> <!-- 👈 new -->
+    <button onclick="resetCircle()">Shuffle</button>
+    <button onclick="toggleFullscreen()">Fullscreen</button>
   </div>
+
+  <!-- ✅ fixed README link -->
+  <a href="https://github.com/JohannesMinge/NeuroSpin/blob/main/README.md"
+     class="readme-link"
+     target="_blank">
+     About this program
+  </a>
 
   <script>
     let circle = document.getElementById("circle");
@@ -160,31 +181,28 @@
     }
 
     function toggleFullscreen() {
-    if (!document.fullscreenElement) {
+      if (!document.fullscreenElement) {
         document.documentElement.requestFullscreen().catch(err => {
-        alert(`Error attempting fullscreen: ${err.message}`);
+          alert(`Error attempting fullscreen: ${err.message}`);
         });
-    } else {
+      } else {
         document.exitFullscreen();
+      }
     }
-    }
-
 
     // Keyboard toggle (spacebar for spin, shift+space for fullscreen)
     document.addEventListener("keydown", e => {
-    if (e.code === "Space") {
+      if (e.code === "Space") {
         e.preventDefault();
         if (e.shiftKey) {
-        toggleFullscreen();
+          toggleFullscreen();
         } else {
-        toggleRotation();
+          toggleRotation();
         }
-    }
+      }
     });
 
-
     window.addEventListener("resize", generateItems);
-
     generateItems();
   </script>
 </body>
